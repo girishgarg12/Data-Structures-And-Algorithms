@@ -1,0 +1,46 @@
+// Using Dijkstra's Algorithm
+//No use of priority queue as all edges have same weight
+
+class truple {
+    int first;
+    int second;
+    int third;
+    truple(int first,int second,int third){
+        this.first=first;
+        this.second=second;
+        this.third=third;
+    }
+}
+
+class Solution {
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        if(grid[0][0]==1)   return -1;
+        int n=grid.length;
+        if(n==1)    return 1;
+        Queue<truple> q=new LinkedList<>();
+        int[][] dis=new int[n][n];
+        for(int i=0;i<n;i++)    Arrays.fill(dis[i],Integer.MAX_VALUE);
+        dis[0][0]=0;
+        int[] r=new int[]{-1,-1,0,1,1,1,0,-1};
+        int[] c=new int[]{0,1,1,1,0,-1,-1,-1};
+        q.add(new truple(0,0,0));
+        while(!q.isEmpty()){
+            truple t=q.poll();
+            int d=t.first;
+            int row=t.second;
+            int col=t.third;
+            for(int i=0;i<8;i++){
+                int nr=row+r[i];
+                int nc=col+c[i];
+
+                if(nr>=0 && nr<=n-1 && nc>=0 && nc<=n-1 && grid[nr][nc]==0 
+                && d+1<dis[nr][nc]){
+                    dis[nr][nc]=d+1;
+                    if(nr==n-1 && nc==n-1)  return dis[nr][nc]+1;
+                    q.add(new truple(d+1,nr,nc));
+                }
+            }
+        }
+        return -1;
+    }
+}
