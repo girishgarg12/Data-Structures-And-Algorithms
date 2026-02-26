@@ -1,5 +1,5 @@
 // Using Dijkstra's Algorithm
-//No use of priority queue as all edges have same weight
+//No use of priority queue as all edges have same weight.
 
 class truple {
     int first;
