@@ -1,0 +1,39 @@
+class truple {
+    int first;
+    int second;
+    int third;
+    truple(int first,int second,int third){
+        this.first=first;
+        this.second=second;
+        this.third=third;
+    }
+}
+class Solution {
+    public int minStepToReachTarget(int knightPos[], int targetPos[], int n) {
+        // Code here
+        if(knightPos[0]==targetPos[0] && knightPos[1]==targetPos[1])    return 0;
+        int[][] dist=new int[n][n];
+        for(int i=0;i<n;i++)    Arrays.fill(dist[i],-1);
+        int[] c=new int[]{1,2,2,1,-1,-2,-2,-1};
+        int[] r=new int[]{-2,-1,1,2,2,1,-1,-2};
+        Queue<truple> q=new LinkedList<>();
+        q.add(new truple(0,knightPos[1]-1,knightPos[0]-1));  // because 1 based indexing is given and we are using 0 based indexing
+        while(!q.isEmpty()){
+            truple t=q.poll();
+            int dis=t.first;
+            int row=t.second;
+            int col=t.third;
+            for(int i=0;i<8;i++){
+                int nr=row+r[i];
+                int nc=col+c[i];
+                
+                if(nr>=0 && nr<n && nc>=0 && nc<n && dis+1>dist[nr][nc]){
+                    dist[nr][nc]=1+dis;
+                    if(nr==targetPos[1]-1 && nc==targetPos[0]-1)    return dist[nr][nc];
+                    q.add(new truple(dist[nr][nc],nr,nc));
+                }
+            }
+        }
+        return -1;
+    }
+}
