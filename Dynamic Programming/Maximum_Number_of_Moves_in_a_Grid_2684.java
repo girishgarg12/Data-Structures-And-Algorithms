@@ -11,7 +11,7 @@ class Solution {
         int[][] memo=new int[n][m];
         for(int i=0;i<n;i++) Arrays.fill(memo[i],-1);
         int res=0;
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++){     // for every column 0, we will find the longest path and take the maximum of all those paths
             res=Math.max(res,dfs(grid,i,0,-1,memo)-1);
         }
         return res;
