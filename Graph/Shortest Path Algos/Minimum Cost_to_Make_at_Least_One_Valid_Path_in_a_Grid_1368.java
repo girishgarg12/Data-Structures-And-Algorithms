@@ -21,7 +21,7 @@ class Solution {
             int row=t.first;
             int col=t.second;
             int cost=t.third;
-            if(cost>dist[row][col]) continue;
+            if(cost>dist[row][col]) continue;    //optimization
             if(row==n-1 && col==m-1) return cost;
             for(int i=1;i<=4;i++){
                 int nr=row+r[i-1];
