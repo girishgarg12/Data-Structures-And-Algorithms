@@ -42,7 +42,7 @@ class Solution {
         int n=strs.length;
         UnionFind u=new UnionFind(n);
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
+            for(int j=i+1;j<n;j++){
                 if(i!=j){
                     if(isSame(strs[i],strs[j])){
                         u.union(i,j);
