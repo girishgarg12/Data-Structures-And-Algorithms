@@ -5,7 +5,6 @@ class Solution {
         while(l <= h){
             int mid = l + (h-l)/2;
             int count = 0;
-            int max = l;
             for(int row = 0;row < n;row++){
                 int col = m-1;
                 while(col >= 0 && matrix[row][col] > mid){
@@ -13,8 +12,8 @@ class Solution {
                 }
                 if(col >= 0){
                     count += col+1;
-                    max = Math.max(max,matrix[row][col]);
                 }
+                else break;
             }
             if(count < k) l = mid+1;
             else h = mid-1;
