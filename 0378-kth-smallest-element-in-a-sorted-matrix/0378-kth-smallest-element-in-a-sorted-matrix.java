@@ -5,8 +5,9 @@ class Solution {
         while(l <= h){
             int mid = l + (h-l)/2;
             int count = 0;
+            int col = m-1;
             for(int row = 0;row < n;row++){
-                int col = m-1;
+               
                 while(col >= 0 && matrix[row][col] > mid){
                     col--;
                 }
