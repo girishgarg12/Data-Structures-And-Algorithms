@@ -7,25 +7,28 @@ class Solution {
         int len = words[0].length();
         List<Integer> res = new ArrayList<>();
         int l = 0;
-        int count = 0;
         for(int st = 0; st < len; st++){
             l = st;
             seen = new HashMap<>();
+            int count = 0;
             for(int r = st; r < n-len+1; r += len){
                 String curr = s.substring(r,r+len);
                 if(map.containsKey(curr)){
                     seen.put(curr,seen.getOrDefault(curr,0)+1);
+                    count++;
                     while(seen.get(curr) > map.get(curr)){
                         String last = s.substring(l,l+len);
                         seen.put(last,seen.get(last)-1);
                         if(seen.get(last) == 0) seen.remove(last);
+                        count--;
                         l += len;
                     }
-                    if(seen.equals(map)) res.add(l);
+                    if(count == words.length) res.add(l);
                 }
                 else{
                     seen = new HashMap<>();
                     l = r+len;
+                    count = 0;
                 }
             }
         }
