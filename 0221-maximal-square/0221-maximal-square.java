@@ -1,23 +1,22 @@
 class Solution {
-    public int helper(char[][] matrix, int i, int j, int[][] memo){
-        if(i < 0 || j < 0) return 0;
-        if(memo[i][j] != -1) return memo[i][j];
-        if(matrix[i][j] == '1'){
-            memo[i][j] = 1 + Math.min(helper(matrix, i-1, j, memo), Math.min(helper(matrix, i, j-1, memo), helper(matrix, i-1, j-1, memo)));
-        }
-        else{
-            memo[i][j] = 0;
-        }
-        return memo[i][j];
-    }
     public int maximalSquare(char[][] matrix) {
         int n = matrix.length, m = matrix[0].length;
         int[][] memo = new int[n][m];
-        for(int i = 0; i < n; i++) Arrays.fill(memo[i], -1);
         int res = 0;
         for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
-                res = Math.max(res, helper(matrix, i , j, memo));
+            memo[i][0] = (matrix[i][0] == '1') ? 1 : 0;
+            if(memo[i][0] == 1) res = 1;
+        }
+        for(int j = 0; j < m; j++){
+            memo[0][j] = (matrix[0][j] == '1') ? 1 : 0;
+            if(memo[0][j] == 1) res = 1;
+        }
+        for(int i = 1; i < n; i++){
+            for(int j = 1; j < m; j++){
+                if(matrix[i][j] == '1'){
+                    memo[i][j] = 1 + Math.min(memo[i-1][j], Math.min(memo[i][j-1], memo[i-1][j-1]));
+                }
+                res = Math.max(res, memo[i][j]);
             }
         }
         return res*res;
