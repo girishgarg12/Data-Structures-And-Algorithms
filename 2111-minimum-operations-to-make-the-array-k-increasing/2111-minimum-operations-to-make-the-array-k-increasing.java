@@ -1,19 +1,28 @@
 class Solution {
+    public int bs(List<Integer> list, int x){
+        int l = 0, r = list.size()-1;
+        while(l < r){
+            int mid = l + (r-l)/2;
+            if(list.get(mid) <= x) l = mid+1;
+            else r = mid;
+        }
+        return l;
+    }
     public int find(List<Integer> chain){
         int n = chain.size();
-        int[] tail = new int[n];
-        int len = 0;
-        for(int x : chain){
-            int l = 0, r = len;
-            while(l < r){
-                int mid = l + (r-l)/2;
-                if(tail[mid] <= x) l = mid+1;
-                else r = mid;
+        List<Integer> tail = new ArrayList<>();
+        tail.add(chain.get(0));
+        for(int i = 1; i < n; i++){
+            int x = chain.get(i);
+            if(x < tail.get(tail.size()-1)){
+                int idx = bs(tail, x);
+                tail.set(idx, x);
             }
-            tail[l] = x;
-            if(l == len) len++;
+            else{
+                tail.add(x);
+            }
         }
-        return len;
+        return tail.size();
     }
     public int kIncreasing(int[] arr, int k) {
         int res = 0, n = arr.length;
