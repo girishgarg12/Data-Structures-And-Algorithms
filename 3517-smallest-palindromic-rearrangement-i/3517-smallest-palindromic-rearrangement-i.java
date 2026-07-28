@@ -1,30 +1,31 @@
 class Solution {
     public String smallestPalindrome(String s) {
+        int n = s.length();
         int[] freq = new int[26];
         for(char c : s.toCharArray()) freq[c-'a']++;
-        StringBuilder sb = new StringBuilder();
+        char[] res = new char[n];
         char ch = '@';
-        int st = 0, end = 0;
+        int st = 0, end = n-1;
         for(int i = 0; i < 26; i++){
             char c = (char)(i + 'a');
             if(freq[i] % 2 != 0){
                 while(freq[i] > 1){
-                    sb.insert(0 + (st++), c);
-                    sb.insert(sb.length()-1 - (end++), c);
+                    res[st++] = c;
+                    res[end--] = c;
                     freq[i] -= 2;
                 }
                 ch = c;
             }
             else{
                 while(freq[i] > 0){
-                    sb.insert(0 + (st++), c);
-                    sb.insert(sb.length()-1 - (end++), c);
+                    res[st++] = c;
+                    res[end--] = c;
                     freq[i] -= 2;
                 }
             }
         }
-        if(ch != '@') sb.insert(sb.length()/2, ch);
-        return sb.toString();
+        if(ch != '@') res[n/2] = ch;
+        return new String(res);
     }
 }
 
