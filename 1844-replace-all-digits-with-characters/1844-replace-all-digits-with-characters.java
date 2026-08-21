@@ -1,12 +1,10 @@
 class Solution {
     public String replaceDigits(String s) {
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if(c >= '0' && c <= '9') sb.append((char)(s.charAt(i-1) + (c - '0')));
-            else sb.append(c);
+        char[] res = s.toCharArray();
+        for(int i = 1; i < s.length(); i += 2) {
+            res[i] = (char)(res[i-1] + (res[i] - '0'));
         }
-        return sb.toString();
+        return new String(res);
     }
 }
 
