@@ -18,18 +18,9 @@ class Solution {
         if(rightQ == leftQ) {
             if(leftS - rightS != 0) return true;
         }
-        else if(rightQ > leftQ){
-            if(rightS > leftS) return true;
-            int q = rightQ - leftQ;
-            int diff = leftS - rightS;
-            if(diff != (9 * (q/2))) return true;
-        }
-        else{
-            if(rightS < leftS) return true;
-            int q = leftQ - rightQ;
-            int diff = rightS - leftS;
-            if(diff != (9 * (q/2))) return true;
-        }
+        int q = rightQ - leftQ;
+        int diff = leftS - rightS;
+        if(diff != (9*(q/2))) return true;
         return false;
     }
 }
