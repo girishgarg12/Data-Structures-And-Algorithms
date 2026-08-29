@@ -53,13 +53,8 @@ class Solution {
         }
         public int min(int x, int[] nums){
             int root = find(x);
-            while(!pq[root].isEmpty() && !active[pq[root].peek()]) {
-                pq[root].poll();
-            }
-            return pq[root].peek();
-        }
-        public void remove(int x){
-            active[x] = false;
+            int res = pq[root].poll();
+            return res;
         }
     }
     public int[] lexicographicallySmallestArray(int[] nums, int limit) {
@@ -79,7 +74,6 @@ class Solution {
         for(int i = 0; i < n; i++){
             int minI = u.min(i, nums);
             res[idx++] = nums[minI];
-            u.remove(minI);
         }
         return res;
     }
